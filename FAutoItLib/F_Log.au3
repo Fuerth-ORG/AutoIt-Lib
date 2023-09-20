@@ -25,8 +25,10 @@
 ; Included Files
 #include <File.au3>
 #include <Date.au3>
-; Logfile
+; LOG-Configuration
 Global $F_LOG_FILE = Null
+Global $F_LOG_SHOWMSGBOX = False
+Global $F_LOG_MSGBOXTIMEOUT = 0
 
 ;===============================================================================
 ;
@@ -34,14 +36,12 @@ Global $F_LOG_FILE = Null
 ; Syntax:			F_LOG_Information(
 ;					$msg = STRING, $msgBox = BOOL,$timeout = INT )
 ; Parameter(s):		$msg - The message to be output
-;					$msgBox - Enables a MsgBox
-;					$timeout - Timeout for MsgBox
 ; Requirement(s):	File.au3
 ; Return Value(s):	-
 ; Author(s):		<alexander@fürth.org>
 ; Note(s):			-
 ;
-Func F_LOG_Information($msg, $msgBox = False, $timeout = 0)
+Func F_LOG_Information($msg)
 	Local $msgBuf = "INFO       " & $msg
 	Local $dateTime = _Date_Time_GetSystemTime()
 	Local $dateTimeStr = _Date_Time_SystemTimeToDateTimeStr($dateTime, 1)
@@ -49,8 +49,8 @@ Func F_LOG_Information($msg, $msgBox = False, $timeout = 0)
 	If $F_LOG_FILE <> Null Then
 		_FileWriteLog($F_LOG_FILE, $msgBuf)
 	EndIf
-	If $msgBox Then
-		MsgBox(0x40, "Information", $msg, $timeout)
+	If $F_LOG_SHOWMSGBOX Then
+		MsgBox(0x40, "Information", $msg, $F_LOG_MSGBOXTIMEOUT)
 	EndIf
 EndFunc ; ==> F_LOG_Information
 
@@ -60,14 +60,12 @@ EndFunc ; ==> F_LOG_Information
 ; Syntax:			F_LOG_Warning(
 ;					$msg = STRING, $msgBox = BOOL,$timeout = INT )
 ; Parameter(s):		$msg - The message to be output
-;					$msgBox - Enables a MsgBox
-;					$timeout - Timeout for MsgBox
 ; Requirement(s):	File.au3
 ; Return Value(s):	-
 ; Author(s):		<alexander@fürth.org>
 ; Note(s):			-
 ;
-Func F_LOG_Warning($msg, $msgBox = False, $timeout = 0)
+Func F_LOG_Warning($msg)
 	Local $msgBuf = "WARNING    " & $msg
 	Local $dateTime = _Date_Time_GetSystemTime()
 	Local $dateTimeStr = _Date_Time_SystemTimeToDateTimeStr($dateTime, 1)
@@ -75,8 +73,8 @@ Func F_LOG_Warning($msg, $msgBox = False, $timeout = 0)
 	If $F_LOG_FILE <> Null Then
 		_FileWriteLog($F_LOG_FILE, $msgBuf)
 	EndIf
-	If $msgBox Then
-		MsgBox(0x30, "Warning", $msg, $timeout)
+	If $F_LOG_SHOWMSGBOX Then
+		MsgBox(0x30, "Warning", $msg, $F_LOG_MSGBOXTIMEOUT)
 	EndIf
 EndFunc ; ==> F_LOG_Warning
 
@@ -86,14 +84,12 @@ EndFunc ; ==> F_LOG_Warning
 ; Syntax:			F_LOG_Error(
 ;					$msg = STRING, $msgBox = BOOL,$timeout = INT )
 ; Parameter(s):		$msg - The message to be output
-;					$msgBox - Enables a MsgBox
-;					$timeout - Timeout for MsgBox
 ; Requirement(s):	File.au3
 ; Return Value(s):	-
 ; Author(s):		<alexander@fürth.org>
 ; Note(s):			-
 ;
-Func F_LOG_Error($msg, $msgBox = False, $timeout = 0)
+Func F_LOG_Error($msg)
 	Local $msgBuf = "ERROR      " & $msg
 	Local $dateTime = _Date_Time_GetSystemTime()
 	Local $dateTimeStr = _Date_Time_SystemTimeToDateTimeStr($dateTime, 1)
@@ -101,8 +97,8 @@ Func F_LOG_Error($msg, $msgBox = False, $timeout = 0)
 	If $F_LOG_FILE <> Null Then
 		_FileWriteLog($F_LOG_FILE, $msgBuf)
 	EndIf
-	If $msgBox Then
-		MsgBox(0x10, "Error", $msg, $timeout)
+	If $F_LOG_SHOWMSGBOX Then
+		MsgBox(0x10, "Error", $msg, $F_LOG_MSGBOXTIMEOUT)
 	EndIf
 EndFunc ; ==> F_LOG_Error
 
